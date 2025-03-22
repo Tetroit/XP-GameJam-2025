@@ -26,6 +26,18 @@ public class Totalpool : ScriptableObject
         Debug.Log(picked.Count);
         return picked;
     }
+    public void SortItems()
+    {
+        collection.Sort((a, b) => a.itemName.CompareTo(b.itemName));
+        for (int i = 0; i < collection.Count - 1; i++)
+        {
+            if (collection[i].itemName == collection[i + 1].itemName)
+            {
+                Debug.LogWarning("Removing duplicate " + collection[i].itemName);
+                collection.RemoveAt(i + 1);
+            }
+        }
+    }
     public static List<T> PickN<T>(List<T> from, int amount)
     {
         if (amount > from.Count)

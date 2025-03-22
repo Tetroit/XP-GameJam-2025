@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
     public float maxSpeed = 5f;
     public float soupFriction = 1f;
 
-    float height = 3;
+    float height = 2;
     Vector3 acc;
 
     bool shouldMove = false;

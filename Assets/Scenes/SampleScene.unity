@@ -3896,7 +3896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc1172fa25747a04ab78394d73bbbf94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: 6, y: 20, z: 8}
+  offset: {x: 6, y: 10, z: 8}
   target: {fileID: 1211338822}
 --- !u!1 &355186352
 GameObject:
@@ -9971,8 +9971,8 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.84
-  m_Height: 3
+  m_Radius: 0.59
+  m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1211338820
@@ -15029,15 +15029,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2183351323116439069, guid: 32cd8aeeed99fa34aa3b83b9728ce367, type: 3}
       propertyPath: m_LocalScale.x
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2183351323116439069, guid: 32cd8aeeed99fa34aa3b83b9728ce367, type: 3}
       propertyPath: m_LocalScale.y
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2183351323116439069, guid: 32cd8aeeed99fa34aa3b83b9728ce367, type: 3}
       propertyPath: m_LocalScale.z
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2183351323116439069, guid: 32cd8aeeed99fa34aa3b83b9728ce367, type: 3}
       propertyPath: m_LocalPosition.x
