@@ -26,4 +26,25 @@ public class Totalpool : ScriptableObject
         Debug.Log(picked.Count);
         return picked;
     }
+    public static List<T> PickN<T>(List<T> from, int amount)
+    {
+        if (amount > from.Count)
+        {
+            Debug.LogWarning("Not enough items in the pool");
+            return null;
+        }
+        List<T> picked = new List<T>();
+        for (int i = 0; i < amount; i++)
+        {
+            int index = Random.Range(0, from.Count);
+            picked.Add(from[index]);
+            from.RemoveAt(index);
+        }
+        foreach (T item in picked)
+        {
+            from.Add(item);
+        }
+        Debug.Log(picked.Count);
+        return picked;
+    }
 }

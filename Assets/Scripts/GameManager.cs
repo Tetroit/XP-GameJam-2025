@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
@@ -25,7 +26,8 @@ public class GameManager : MonoBehaviour
         startButton.SetEnabled(false);
         start.Invoke();
     }
-    UnityAction start;
+    public UnityEvent start;
+    public UnityEvent OnComplete;
 
     private void OnEnable()
     {

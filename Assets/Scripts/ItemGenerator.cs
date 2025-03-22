@@ -2,21 +2,33 @@ using JetBrains.Annotations;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class ItemGenerator : MonoBehaviour
 {
+    public static ItemGenerator instance;
+    
     public Totalpool totalPool;
     public List<SoupItem> pool;
     public List<SoupItem> items;
     public Vector3 center;
     public float radius;
 
+    bool levelClear = false;
+
     public RectTransform collectList;
     public TextMeshProUGUI listItemPr;
-    Dictionary<SoupItem, int> tasks = new();
+    Dictionary<string, int> tasks = new();
 
     public int SpawnTestAmount = 100;
 
+    private void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
     void Start()
     {
         Generate();
@@ -35,6 +47,7 @@ public class ItemGenerator : MonoBehaviour
     }
     public void Generate()
     {
+        levelClear = false;
         SelectPool(GameManager.instance.score + 3);
         Generatelist(GameManager.instance.score+2, 10);
         GenerateItems(100);
@@ -42,35 +55,25 @@ public class ItemGenerator : MonoBehaviour
     public void Generatelist(int items, int apxAmount = 10)
     {
         tasks.Clear();
-        for (int i = 0; i < items; i++)
+        List<SoupItem> newTasks = Totalpool.PickN(pool, items);
+        foreach (var item in newTasks)
         {
-            var itemUI = Instantiate(listItemPr, collectList);
-            SoupItem item = PickRandom(pool);
-            pool.Remove(item);
-            int amount = Random.Range(apxAmount/items, apxAmount/items + 2);
-
-            itemUI.text = item.itemName + " " + amount;
-            tasks.Add(item, amount);
-        }
-        foreach (var task in tasks)
-        {
-            pool.Add(task.Key);
+            tasks.Add(item.itemName, Random.Range(apxAmount/items + 1, apxAmount/items + 3));
+            var listItem = Instantiate(listItemPr, collectList);
+            listItem.text = item.itemName + " " + tasks[item.itemName];
         }
     }
-    public void GenerateItems(int num)
+    public void ClearItems()
     {
         //remove all
         for (int i = 0; items.Count > 0;)
         {
-            var item = items[i];
-            items.RemoveAt(i);
-            if (!Application.isPlaying)
-                DestroyImmediate(item.gameObject);
-            else
-                Destroy(item.gameObject);
+            DestroyItem(items[i]);
         }
-        items.Clear();
-
+    }
+    public void GenerateItems(int num)
+    {
+        ClearItems();
         //add new
         for (int i = 0; i < num; i++)
         {
@@ -90,6 +93,14 @@ public class ItemGenerator : MonoBehaviour
 
         items.Add(instance);
     }
+    public void DestroyItem(SoupItem item)
+    {
+        items.Remove(item);
+        if (!Application.isPlaying)
+            DestroyImmediate(item.gameObject);
+        else
+            Destroy(item.gameObject);
+    }
     public T PickRandom<T>(List<T> list)
     {
         return list[Random.Range(0, list.Count)];
@@ -100,5 +111,52 @@ public class ItemGenerator : MonoBehaviour
         Gizmos.matrix = transform.localToWorldMatrix;
         Gizmos.DrawLine(center + new Vector3(0,0,radius), center + new Vector3(0,0,-radius));
         Gizmos.DrawLine(center + new Vector3(radius, 0, 0), center + new Vector3(-radius, 0, 0));
+    }
+
+
+    public void OnpickUp(SoupItem item)
+    {
+        DestroyItem(item);
+        SpawnItem();
+        if (tasks.ContainsKey(item.itemName))
+        {
+            tasks[item.itemName]--;
+            if (tasks[item.itemName] == 0)
+            {
+                RemoveTask(item.itemName);
+                return;
+            }
+            foreach (Transform child in collectList)
+            {
+                if (child.GetComponent<TextMeshProUGUI>().text.Contains(item.itemName))
+                {
+                    child.GetComponent<TextMeshProUGUI>().text = item.itemName + " " + tasks[item.itemName];
+                    break;
+                }
+            }
+        }
+    }
+    void RemoveTask(string name)
+    {
+        tasks.Remove(name);
+        foreach (Transform child in collectList)
+        {
+            if (child.GetComponent<TextMeshProUGUI>().text.Contains(name))
+            {
+                Destroy(child.gameObject);
+                break;
+            }
+        }
+        if (tasks.Count == 0 && !levelClear)
+        {
+            levelClear = true;
+            GameManager.instance.score++;
+            GameManager.instance.OnComplete?.Invoke();
+        }   
+    }
+    public void OnComplete()
+    {
+        ClearItems();
+        Invoke(nameof(Generate), 1f);
     }
 }
