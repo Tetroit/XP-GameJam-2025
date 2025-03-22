@@ -31,6 +31,7 @@ public class ItemGenerator : MonoBehaviour
     public void SelectPool(int n)
     {
         pool = totalPool.PickN(n);
+        Debug.Log(pool.Count);
     }
     public void Generate()
     {
@@ -47,7 +48,9 @@ public class ItemGenerator : MonoBehaviour
             SoupItem item = PickRandom(pool);
             pool.Remove(item);
             int amount = Random.Range(apxAmount/items, apxAmount/items + 2);
+
             itemUI.text = item.itemName + " " + amount;
+            tasks.Add(item, amount);
         }
         foreach (var task in tasks)
         {
@@ -56,6 +59,7 @@ public class ItemGenerator : MonoBehaviour
     }
     public void GenerateItems(int num)
     {
+        //remove all
         for (int i = 0; items.Count > 0;)
         {
             var item = items[i];
@@ -66,6 +70,8 @@ public class ItemGenerator : MonoBehaviour
                 Destroy(item.gameObject);
         }
         items.Clear();
+
+        //add new
         for (int i = 0; i < num; i++)
         {
             SpawnItem();

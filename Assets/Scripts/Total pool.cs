@@ -23,6 +23,7 @@ public class Totalpool : ScriptableObject
         {
             collection.Add(item);
         }
+        Debug.Log(picked.Count);
         return picked;
     }
 }
