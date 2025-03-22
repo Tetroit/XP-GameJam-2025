@@ -9,7 +9,7 @@ public class ItemGeneratorEditor : Editor
         ItemGenerator generator = (ItemGenerator)target;
         if (GUILayout.Button("Generate"))
         {
-            generator.Generate(generator.SpawnTestAmount);
+            generator.GenerateItems(generator.SpawnTestAmount);
         }
         base.OnInspectorGUI();
     }

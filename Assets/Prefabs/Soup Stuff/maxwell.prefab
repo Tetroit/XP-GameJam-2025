@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7931773624430291605, guid: 8371b7e8a638abc4eaf4d52ca460c740, type: 3}
+      propertyPath: itemName
+      value: maxwell
+      objectReference: {fileID: 0}
     - target: {fileID: 3013152290528864445, guid: 8371b7e8a638abc4eaf4d52ca460c740, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -50,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5036276547112855827, guid: 8371b7e8a638abc4eaf4d52ca460c740, type: 3}
       propertyPath: m_Name
-      value: ObjectPrefeb Variant 1
+      value: maxwell
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -73,6 +77,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 683229517994563729}
     m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: ca66752f0c7680144b254ecc53f98b2d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ca66752f0c7680144b254ecc53f98b2d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ca66752f0c7680144b254ecc53f98b2d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ca66752f0c7680144b254ecc53f98b2d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0
@@ -112,6 +128,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: ca66752f0c7680144b254ecc53f98b2d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: ca66752f0c7680144b254ecc53f98b2d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: ca66752f0c7680144b254ecc53f98b2d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'

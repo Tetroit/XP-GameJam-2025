@@ -1,19 +1,25 @@
 using JetBrains.Annotations;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ItemGenerator : MonoBehaviour
 {
+    public Totalpool totalPool;
     public List<SoupItem> pool;
     public List<SoupItem> items;
     public Vector3 center;
     public float radius;
 
+    public RectTransform collectList;
+    public TextMeshProUGUI listItemPr;
+    Dictionary<SoupItem, int> tasks = new();
+
     public int SpawnTestAmount = 100;
 
     void Start()
     {
-
+        Generate();
     }
 
     // Update is called once per frame
@@ -22,7 +28,33 @@ public class ItemGenerator : MonoBehaviour
 
     }
 
-    public void Generate(int num)
+    public void SelectPool(int n)
+    {
+        pool = totalPool.PickN(n);
+    }
+    public void Generate()
+    {
+        SelectPool(GameManager.instance.score + 3);
+        Generatelist(GameManager.instance.score+2, 10);
+        GenerateItems(100);
+    }
+    public void Generatelist(int items, int apxAmount = 10)
+    {
+        tasks.Clear();
+        for (int i = 0; i < items; i++)
+        {
+            var itemUI = Instantiate(listItemPr, collectList);
+            SoupItem item = PickRandom(pool);
+            pool.Remove(item);
+            int amount = Random.Range(apxAmount/items, apxAmount/items + 2);
+            itemUI.text = item.itemName + " " + amount;
+        }
+        foreach (var task in tasks)
+        {
+            pool.Add(task.Key);
+        }
+    }
+    public void GenerateItems(int num)
     {
         for (int i = 0; items.Count > 0;)
         {
