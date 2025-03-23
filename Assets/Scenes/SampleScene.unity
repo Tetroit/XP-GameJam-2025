@@ -2864,7 +2864,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   score: 0
   timer: 60
-  maxTimer: 3
+  maxTimer: 60
   scoreText: {fileID: 533051663}
   timerText: {fileID: 1063368307}
   start:
