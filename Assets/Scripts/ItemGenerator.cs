@@ -49,8 +49,8 @@ public class ItemGenerator : MonoBehaviour
     {
         levelClear = false;
         SelectPool(GameManager.instance.score + 3);
-        Generatelist(GameManager.instance.score+2, 10);
-        GenerateItems(100);
+        Generatelist((GameManager.instance.score/2 + 2), GameManager.instance.score);
+        GenerateItems(SpawnTestAmount);
     }
     public void Generatelist(int items, int apxAmount = 10)
     {
@@ -150,13 +150,25 @@ public class ItemGenerator : MonoBehaviour
         if (tasks.Count == 0 && !levelClear)
         {
             levelClear = true;
-            GameManager.instance.score++;
-            GameManager.instance.OnComplete?.Invoke();
+            GameManager.instance.Completed();
         }   
+    }
+    public void OnReset()
+    {
+        ClearItems();
+        Generate();
     }
     public void OnComplete()
     {
         ClearItems();
-        Invoke(nameof(Generate), 1f);
+    }
+    public void OnLose()
+    {
+        ClearItems();
+        tasks.Clear(); 
+        foreach (Transform child in collectList)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }

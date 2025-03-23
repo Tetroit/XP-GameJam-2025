@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
     }
     public void OnComplete()
     {
-        Invoke(nameof(Respawn), 1f);
+        Respawn();
     }
     public void Respawn()
     {

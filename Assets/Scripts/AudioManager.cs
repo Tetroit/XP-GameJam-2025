@@ -11,7 +11,7 @@ public class AudioManager : MonoBehaviour
     {
         source = GetComponent<AudioSource>();
         source.loop = true;
-        //PickTrack();
+        PickTrack();
     }
 
     // Update is called once per frame
@@ -21,11 +21,12 @@ public class AudioManager : MonoBehaviour
     }
     void PickTrack()
     {
-        int newTrack = UnityEngine.Random.Range(0, music.Count);
+        int newTrack = Random.Range(0, music.Count);
         if (currentlyPlaying != newTrack)
         {
             currentlyPlaying = newTrack;
             source.clip = music[newTrack];
+            source.volume = 3f;
             source.Play();
         }
     }
